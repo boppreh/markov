@@ -1,6 +1,19 @@
 # -*- coding: UTF-8 -*-
 
 from collections import defaultdict
+import random
+
+#http://stackoverflow.com/questions/3679694/a-weighted-version-of-random-choice
+def weighted_choice(choices):
+   total = sum(w for c, w in choices)
+   r = random.uniform(0, total)
+   upto = 0
+   for c, w in choices:
+      if upto + w > r:
+         return c
+      upto += w
+   assert False, "Shouldn't get here"
+
 
 class Markov(object):
     def __init__(self, prefix_size=1, data=None):
@@ -16,7 +29,7 @@ class Markov(object):
                 self.stats[prefix][value] += 1
 
     def _next(self, prefix=()):
-        return max(self.stats[prefix], key=lambda x: self.stats[prefix][x]) 
+        return weighted_choice(self.stats[prefix].items())
 
     def chain(self, length=1, prefix=[]):
         for i in range(length):
@@ -27,6 +40,6 @@ def predict(previous, length=1, prefix_size=2):
     return Markov(prefix_size, previous).chain(length, previous)
 
 
-text = open('memorias.txt').read()
+text = open('tcc.txt').read()
 m = Markov(2, text.split())
-print ' '.join(m.chain(100, ['a']))
+print ' '.join(m.chain(1000, ['a']))
