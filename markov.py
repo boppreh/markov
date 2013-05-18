@@ -18,11 +18,11 @@ def weighted_choice(choices):
 class Markov(object):
     def __init__(self, prefix_size=1, data=None):
         self.prefix_size = prefix_size
-        if data is not None:
-            self.learn(data) 
+        self.stats = defaultdict(lambda: defaultdict(int))
+        if data:
+            self.learn(data)
 
     def learn(self, data):
-        self.stats = defaultdict(lambda: defaultdict(int))
         for i, value in enumerate(data):
             for j in range(1, self.prefix_size + 1):
                 prefix = tuple(data[max(0, i - j):i])
