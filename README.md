@@ -9,8 +9,8 @@ new paragraph.
 There are two ways to use this library:
 
 
-predict(previous, length=1, prefix_size=2)
-------------------------------------------
+`predict(previous, length=1, prefix_size=2)`
+--------------------------------------------
 
 Given a list of items, predicts the next `length` items in the sequence.
 `prefix_size` is a parameter to the algorithm that roughly dictates how
