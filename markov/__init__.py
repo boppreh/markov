@@ -39,7 +39,7 @@ class Markov(object):
 def predict(previous, length=1, prefix_size=2):
     return Markov(prefix_size, previous).chain(length, previous)
 
-
-text = open('tcc.txt').read()
-m = Markov(2, text.split())
-print ' '.join(m.chain(1000, ['a']))
+if __name__ == '__main__':
+    text = open('corpus.txt').read()
+    m = Markov(2, text.split())
+    print(' '.join(m.chain(1000, ['a'])))
